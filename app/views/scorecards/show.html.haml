@@ -1,0 +1,16 @@
+%h1 Scorecard
+
+%table
+  %thead
+    %tr
+      %th Region
+      - @kpis.each do |kpi|
+        %th= kpi.name
+  - @regions.each do |region|
+    %tr
+      %td= region.name
+      - @kpis.each do |kpi|
+        - kpi_value = KpiValue.where(:region_id => region, :kpi_id => kpi).last
+        %td{"data-region-id" => region.id, "data-kpi-id" => kpi.id, :class => [:editable, KpiColouring.new(kpi, kpi_value).state == :achieved ? :achieved : :missed]}= kpi_value.try(:value)
+
+= link_to "Edit", "#", :class => "make_editable"

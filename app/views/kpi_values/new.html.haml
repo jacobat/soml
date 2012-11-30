@@ -1,0 +1,6 @@
+%h1 New KPI value
+
+= simple_form_for [@kpi_value.region, @kpi_value] do |f|
+  =f.input :kpi_id, :collection => Kpi.all
+  =f.input :value
+  =f.button :submit
